@@ -1,0 +1,36 @@
+---
+- name: Add {{extra_path}} to PATH
+  lineinfile:
+    path: /etc/environment
+    state: present
+    regexp: 'PATH=(["]*)((?!.*?{{extra_path}}).*?)(["]*)$'
+    line: 'PATH=\1\2:{{extra_path}}\3'
+    backrefs: yes
+  become: yes
+
+# - name: Checks if the environment file already has an entry for the PATH
+#   replace:
+#     dest=/etc/environment
+#     regexp="PATH=(.*)"
+#     replace="PATH=\1"
+#   register: checkIfPathExists
+
+# - name: Add a PATH entry with {{ extrapath }} if the PATH is not already defined
+#   lineinfile:
+#     dest=/etc/environment
+#     state=present
+#     line="PATH={{ extrapath }}"
+#     regexp=''
+#     insertafter=EOF
+#   when: checkIfPathExists.changed == false
+#   become: yes
+
+# - name: add {{ extrapath }} to the PATH
+#   lineinfile:
+#     dest=/etc/environment
+#     state=present
+#     backrefs=no
+#     regexp="PATH=(["])((?!.?{{ extrapath }}).?)(["])$"
+#     line="PATH=\1\2:{{ extra_path }}\3"
+#   when: checkIfPathExists.changed
+#   become: yes
