@@ -1,0 +1,22 @@
+---
+- name: Download Kafka
+  get_url:
+    url: "http://apache.mirrors.tds.net/kafka/{{ kafka_version }}/{{ kafka_package_name }}"
+    dest: "{{ kafka_tmp_tgz }}"
+- name: Unarchive Kafka
+  unarchive:
+    src: "{{ kafka_tmp_tgz }}"
+    dest: "/tmp/"
+    remote_src: yes
+- name: Make destination directory
+  file:
+    path: "{{ kafka_dst_root_dir }}"
+    state: directory
+  become: yes
+- name: Rename directory for Kafka
+  command: mv "/tmp/{{ kafka_full_version }}" "{{ kafka_dst_root_dir }}/kafka"
+  become: yes
+- name: Remove Kafka
+  file:
+    path: "{{ kafka_tmp_tgz }}"
+    state: absent

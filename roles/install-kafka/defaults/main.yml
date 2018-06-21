@@ -1,0 +1,7 @@
+---
+scala_version: "2.12"
+kafka_version: "1.1.0"
+kafka_full_version: "kafka_{{ scala_version }}-{{ kafka_version }}"
+kafka_package_name: "{{ kafka_full_version }}.tgz"
+kafka_tmp_tgz: "/tmp/{{ kafka_package_name }}"
+kafka_dst_root_dir: "/opt"
