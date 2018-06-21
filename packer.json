@@ -1,13 +1,14 @@
 {
   "min_packer_version": "1.1.2",
   "variables": {
+    "ami_base_name": "kafka-zookeeper",
     "aws_region": "ap-southeast-1",
     "scala_version": "2.12",
     "kafka_version": "1.1.0"
   },
   "builders": [
     {
-      "name": "kafka-zookeeper",
+      "name": "{{ user `ami_base_name` }}",
       "ami_name": "{{ user `ami_base_name` }}-{{ isotime | clean_ami_name }}",
       "ami_description": "Ubuntu 18.04 LTS with Kafka and Zookeeper",
       "instance_type": "t2.micro",
